@@ -1,0 +1,3 @@
+[APIC]
+#  Change this entry to be the IP address or fully qualified host name
+aci-demo.sandbox.wwtatc.local ansible_connection=local
