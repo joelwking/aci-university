@@ -58,3 +58,13 @@
     command: "/usr/bin/dos2unix {{item.dn}}{{item.fn}}"
     with_items:
       - "{{programs}}"
+
+  - name: Update the default ansible.cfg file
+    blockinfile:
+     dest: ./ansible.cfg
+     marker: "### aci_u_setup added ###"
+     insertafter: "/usr/share/my_modules/"
+     content: |
+      inventory      = $HOME/aci-university/ansible/playbooks/hosts
+      library        = /usr/share/ansible/
+     state: present
