@@ -81,7 +81,7 @@ Vagrant.configure(2) do |config|
   sudo git clone https://github.com/joelwking/aci-university.git
   cd aci-iniversity/ansible/playbooks
   sudo cp /etc/ansible/ansible.cfg ./ansible.cfg
-  # sudo ansible-playbook somesetup.yml
+  sudo ansible-playbook aci_u_setup.yml
 
   SHELL
 end
