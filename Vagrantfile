@@ -79,7 +79,7 @@ Vagrant.configure(2) do |config|
   echo export GIT_SSL_NO_VERIFY=1 >>/home/vagrant/.profile
   echo export PYTHONPATH="/usr/share/ansible" >>/home/vagrant/.profile
   sudo git clone https://github.com/joelwking/aci-university.git
-  cd aci-iniversity/ansible/playbooks
+  cd aci-university/ansible/playbooks
   sudo cp /etc/ansible/ansible.cfg ./ansible.cfg
   sudo ansible-playbook aci_u_setup.yml
 
