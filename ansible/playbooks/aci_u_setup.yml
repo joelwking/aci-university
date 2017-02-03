@@ -1,0 +1,60 @@
+#!/usr/bin/ansible-playbook
+---
+#      Copyright (c) 2016, 2017 World Wide Technology, Inc.
+#      All rights reserved.
+#
+#      Revision history:
+#        3 February 2017      |  1.0 - initial version
+#
+- name: Install modules to configure the ACI U environment
+  hosts: localhost
+  gather_facts: yes
+
+  vars:
+   path:
+     target: "/usr/share/ansible/"
+     source: "https://raw.githubusercontent.com/"
+
+   programs:
+     - {repo: "joelwking/ansible-nxapi/master/", fn: csv_to_facts.py, dn: "{{path.target}}" }
+     - {repo: "joelwking/ansible-f5/master/", fn: icontrol_install_config.py, dn: "{{path.target}}"}
+     - {repo: "mamullen13316/ansible_xls_to_facts/master/", fn: xls_to_facts.py, dn: "{{path.target}}"}
+     - {repo: "joelwking/ansible-nxapi/master/", fn: nxapi_install_config.py, dn: "{{path.target}}"}
+     - {repo: "joelwking/ansible-aci/master/", fn: aci_install_config.py, dn: "{{path.target}}"}
+     - {repo: "joelwking/ansible-aci/master/", fn: AnsibleACI.py, dn: "{{path.target}}"}
+     - {repo: "joelwking/ansible-aci/master/", fn: aci_gather_facts.py, dn: "{{path.target}}"}
+     - {repo: "joelwking/ansible-aci/master/", fn: aci_clone_tenant.py, dn: "{{path.target}}"}
+     - {repo: "joelwking/ansible-ios/master/", fn: cisco_ios_install_config.py, dn: "{{path.target}}"}
+     - {repo: "joelwking/ansible-apic-em/master/", fn: apic_em_gather_facts.py, dn: "{{path.target}}"}
+     - {repo: "joelwking/ansible-f5/master/", fn: icontrol_gather_facts.py, dn: "{{path.target}}"}
+     - {repo: "joelwking/ansible-spark/master/", fn: spark_room.py, dn: "{{path.target}}"}
+     - {repo: "joelwking/ansible-f5/master/", fn: F5_sdk_LTM_node.py, dn: "{{path.target}}"}
+     - {repo: "joelwking/ansible-module-infoblox/molina/", fn: infoblox.py, dn: "{{path.target}}"}
+     - {repo: "joelwking/ansible-f5/master/", fn: bigip_check.py, dn: "{{path.target}}"}
+     - {repo: "joelwking/ansible-ios/master/", fn: cisco_ios_show.py, dn: "{{path.target}}"}
+
+   playbooks:
+     - None
+
+   files:
+     - None
+
+  tasks:
+  - name: Download the Playbook Example CSV and modules
+    uri:
+      method: GET
+      url: "{{path.source}}{{item.repo}}{{item.fn}}"
+      dest: "{{item.dn}}"
+      validate_certs: no
+    with_items:
+      - "{{programs}}"
+      
+  - name: chmod on modules and playbooks(s)
+    command: "/bin/chmod 755 {{item.dn}}{{item.fn}}"
+    with_items:
+      - "{{programs}}"
+
+  - name: dos2unix on the modules
+    command: "/usr/bin/dos2unix {{item.dn}}{{item.fn}}"
+    with_items:
+      - "{{programs}}"
