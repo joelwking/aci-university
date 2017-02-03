@@ -40,8 +40,8 @@
 
       - name: Add the subnets to the bridge domain
         aci_install_config:
-        xml_file: ./files/__{{fvTenant}}_fvSubnet.xml
-        URI: "{{dn}}.xml"
-        host: "{{inventory_hostname}}"
-        username: "{{username}}"
-        password: "{{password}}"
+          xml_file: ./files/__{{fvTenant}}_fvSubnet.xml
+          URI: "{{dn}}.xml"
+          host: "{{inventory_hostname}}"
+          username: "{{username}}"
+          password: "{{password}}"

@@ -59,7 +59,7 @@
     with_items:
       - "{{programs}}"
 
-  - name: Update the default ansible.cfg file
+  - name: Update the defaults to use our inventory and library in ansible.cfg
     blockinfile:
      dest: ./ansible.cfg
      marker: "### aci_u_setup added ###"
@@ -68,3 +68,9 @@
       inventory      = $HOME/aci-university/ansible/playbooks/hosts
       library        = /usr/share/ansible/
      state: present
+
+  - name: Do not create retry file, modify ansible.cfg
+    lineinfile:
+      path: ./ansible.cfg
+      regexp: '^retry_files_enabled'
+      line: 'retry_files_enabled = False'

@@ -2,6 +2,6 @@
 <!--
  Tenant
  -->
-<fvTenant  descr="Sample Tenant for ACP Deployment Engineers" >
+<fvTenant  descr="Sample Tenant for ACI U" >
  <tagInst name="netdeploy"/>
 </fvTenant>

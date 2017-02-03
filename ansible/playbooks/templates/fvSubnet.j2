@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Remarks: ACI U. Training Class -->
 <fvBD>
-{% for gateway in BD_subnets %}
+{% for item in BD_subnets %}
 <fvSubnet name="" descr="{{item.description}}" scope="private" ip="{{item.gateway}}" ctrl=""/>
 {% endfor %}
 </fvBD>
