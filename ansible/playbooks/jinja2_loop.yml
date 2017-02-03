@@ -1,0 +1,47 @@
+---
+  - name: Jinja2 Lab looping in a template
+    hosts: APIC
+    connection: local
+    gather_facts: yes
+    vars:
+      fvTenant: "student_{{ansible_date_time.epoch}}"
+      fvBD:
+         name: Department_Portals
+      dn: "/api/mo/uni/tn-{{fvTenant}}/BD-{{fvBD.name}}"
+
+      # A list of subnets and their descriptions in a hash table
+      BD_subnets:
+        - {gateway: 192.0.2.1/30 , description: Marketing}
+        - {gateway: 192.0.2.5/30 , description: Finance}
+        - {gateway: 192.0.2.9/30 , description: Legal}
+        - {gateway: 192.0.2.13/30 , description: Canine Resources}
+        - {gateway: 192.0.2.17/30 , description: Engineering}
+        - {gateway: 192.0.2.21/30 , description: Office of the President}
+        - {gateway: 192.0.2.25/30 , description: IT}
+
+    tasks:
+
+      - name: Decrypt the password file
+        include_vars: "./passwords.yml"
+
+      - name: Create XML file  for subnets
+        template:
+          src: ./templates/fvSubnet.j2
+          dest: ./files/__{{fvTenant}}_fvSubnet.xml
+
+      - name: Create the Tenant
+        aci_install_config:
+          xml_file: "./files/fvTenant.xml"
+          URI: "/api/mo/uni/tn-{{fvTenant}}.xml"
+          host: "{{inventory_hostname}}"
+          username: "{{username}}"
+          password: "{{password}}"
+
+
+      - name: Add the subnets to the bridge domain
+        aci_install_config:
+        xml_file: ./files/__{{fvTenant}}_fvSubnet.xml
+        URI: "{{dn}}.xml"
+        host: "{{inventory_hostname}}"
+        username: "{{username}}"
+        password: "{{password}}"
