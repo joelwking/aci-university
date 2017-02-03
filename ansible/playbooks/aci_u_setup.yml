@@ -71,6 +71,6 @@
 
   - name: Do not create retry file, modify ansible.cfg
     lineinfile:
-      path: ./ansible.cfg
+      dest: ./ansible.cfg
       regexp: '^retry_files_enabled'
       line: 'retry_files_enabled = False'
