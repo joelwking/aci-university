@@ -57,7 +57,7 @@ ok: [aci-demo.sandbox.wwtatc.local]
 
 TASK [Display the Tenant name] *************************************************
 ok: [aci-demo.sandbox.wwtatc.local] => {
-    "msg": "Creating tenant student_1486153177"
+    "msg": "Creating tenant student_1486236944"
 }
 
 TASK [Create XML file  from a template to add subnets under a bridge domain] ***
@@ -69,14 +69,17 @@ changed: [aci-demo.sandbox.wwtatc.local]
 TASK [Add the subnets to the bridge domain] ************************************
 changed: [aci-demo.sandbox.wwtatc.local]
 
+TASK [Clone the Tenant "student_1486236944"] ***********************************
+changed: [aci-demo.sandbox.wwtatc.local]
+
 PLAY RECAP *********************************************************************
-aci-demo.sandbox.wwtatc.local : ok=6    changed=3    unreachable=0    failed=0
+aci-demo.sandbox.wwtatc.local : ok=7    changed=4    unreachable=0    failed=0
 ```
 Examine the file created from the Jinja template
 ```
 cat ./files/*__student*
 ```
-Logon the APIC and examine the Tenant you created.
+Logon the APIC and examine the Tenant, and the clone of the Tenant, you created.
 
 Issue `exit` to terminate the ssh session and issue `vagrant destroy` to remove the virtual machine
 from your environment.
