@@ -22,7 +22,7 @@
     tasks:
       - name: Decrypt the password file
         include_vars: "./passwords.yml"
-        
+
       - name: Display the Tenant name
         debug: msg="Creating tenant {{fvTenant}}"
 
@@ -46,3 +46,14 @@
           host: "{{inventory_hostname}}"
           username: "{{username}}"
           password: "{{password}}"
+
+      - name: Clone the Tenant "{{fvTenant}}"
+        aci_clone_tenant:
+          ihost:  "{{inventory_hostname}}"
+          ohost: "{{inventory_hostname}}"
+          username: "{{username}}"
+          password: "{{password}}"
+          descr: "ACI U. cloned tenant"
+          template: "{{fvTenant}}
+          tenant: "clone_{{fvTenant}}""
+
