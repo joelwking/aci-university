@@ -54,6 +54,6 @@
           username: "{{username}}"
           password: "{{password}}"
           descr: "ACI U. cloned tenant"
-          template: "{{fvTenant}}
-          tenant: "clone_{{fvTenant}}""
+          template: "{{fvTenant}}"
+          tenant: "clone_{{fvTenant}}"
 
