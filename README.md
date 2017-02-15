@@ -23,7 +23,7 @@ sudo vi passwords.yml
 ```
 Encrypt the passwords.yml file
 ```
-sudo andible-vault encrypt passwords.yml
+sudo ansible-vault encrypt passwords.yml
 sudo cat passwords.yml
 ```
 Review the playbook 
